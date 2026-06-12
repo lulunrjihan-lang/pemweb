@@ -18,6 +18,8 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Firefly\FilamentBlog\Blog;
+use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -28,6 +30,16 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->plugins([
+                FilamentSpatieRolesPermissionsPlugin::make(),
+                Blog::make()
+            ])
+            ->sidebarCollapsibleOnDesktop()
+            ->navigationGroups([
+                'Master Data',
+                'User Management',
+                'Blog Management',
+            ])
             ->colors([
                 'primary' => Color::Amber,
             ])
